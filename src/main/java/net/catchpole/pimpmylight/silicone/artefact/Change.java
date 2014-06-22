@@ -14,19 +14,23 @@ package net.catchpole.pimpmylight.silicone.artefact;
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
-import net.catchpole.silicone.action.annotation.AllowGetRequest;
-import net.catchpole.silicone.action.annotation.Endpoint;
+import net.catchpole.pimpmylight.FatController;
+import net.catchpole.pimpmylight.model.Light;
+import net.catchpole.pimpmylight.model.RailwaySignal;
+import net.catchpole.silicone.action.Endpoint;
 
-@Endpoint
-@AllowGetRequest
-public class Update {
-    private String update;
+public class Change implements Endpoint<Light,RailwaySignal> {
+    private FatController fatController;
 
-    public String getUpdate() {
-        return update;
+    public Change(FatController fatController) {
+        this.fatController = fatController;
     }
 
-    public void setUpdate(String update) {
-        this.update = update;
+    @Override
+    public RailwaySignal handle(Light light) {
+        if (light == null) {
+            return null;
+        }
+        return fatController.change(light.getName());
     }
 }

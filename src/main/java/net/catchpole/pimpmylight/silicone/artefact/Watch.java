@@ -15,20 +15,18 @@ package net.catchpole.pimpmylight.silicone.artefact;
 //   limitations under the License.
 
 import net.catchpole.pimpmylight.model.RailwaySignal;
-import net.catchpole.silicone.action.annotation.Asyncronous;
-import net.catchpole.silicone.action.annotation.Endpoint;
+import net.catchpole.silicone.action.Endpoint;
 import net.catchpole.silicone.async.AsyncGroup;
 
-@Endpoint
-@Asyncronous
-public class Watch {
+public class Watch implements Endpoint<Object,RailwaySignal> {
     private AsyncGroup<RailwaySignal> asyncGroup;
 
     public Watch(AsyncGroup<RailwaySignal> asyncGroup) {
         this.asyncGroup = asyncGroup;
     }
 
-    public RailwaySignal getRailwaySignal() {
+    @Override
+    public RailwaySignal handle(Object railwaySignal) {
         return asyncGroup.blockForUpdate();
     }
 }

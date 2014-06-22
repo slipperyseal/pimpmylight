@@ -38,14 +38,15 @@ public class FatController {
         }
     }
 
-    public synchronized void change(String name) {
+    public synchronized RailwaySignal change(String name) {
         for (Light light : railwaySignal) {
             if (light.getName().equals(name)) {
                 this.railwaySignal = new RailwaySignal(this.railwaySignal, new Light(name, !light.isIlluminated()));
                 notifyAllListeners();
-                return;
+                return this.railwaySignal;
             }
         }
+        return this.railwaySignal;
     }
 
     private void notifyAllListeners() {

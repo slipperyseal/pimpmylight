@@ -16,9 +16,7 @@ package net.catchpole.pimpmylight.silicone.artefact;
 
 import net.catchpole.pimpmylight.FatController;
 import net.catchpole.pimpmylight.model.RailwaySignal;
-import net.catchpole.silicone.action.annotation.Endpoint;
 
-@Endpoint
 public class Status {
     private FatController fatController;
 
@@ -28,9 +26,5 @@ public class Status {
 
     public RailwaySignal getRailwaySignal() {
         return this.fatController.getStatus();
-    }
-
-    public int getTotalObservers() {
-        return 5;
     }
 }

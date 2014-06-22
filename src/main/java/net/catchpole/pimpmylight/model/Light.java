@@ -28,6 +28,17 @@ public class Light {
         this.illuminated = illuminated;
     }
 
+    public Light() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIlluminated(boolean illuminated) {
+        this.illuminated = illuminated;
+    }
+
     public String getName() {
         return name;
     }

@@ -23,9 +23,10 @@
                 </xsl:for-each>
 
                 <div class="topspacer"/>
-                <h2>Pimp My Light</h2>
+                <h3>Pimp My Light</h3>
 
-                click below to control <a href="http://twitter.com/slipperyseal">Slippery Seal</a>'s Raspberry Pi powered railway signal in realtime<br/><br/>
+                click below to control <a href="http://twitter.com/slipperyseal">Slippery Seal</a>'s Raspberry Pi<br/>
+                powered railway signal in realtime<br/><br/>
 
                 <xsl:for-each select="status">
                     <xsl:if test=". = '404'">
@@ -42,7 +43,8 @@
                                 <div class="lightwrapper">
                                     <xsl:for-each select="Light">
                                         <div class="lightimage">
-                                            <a href="?update={name}"><img id="{name}" class="lightimage" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/></a>
+                                            <a href="?update={name}"><img id="{name}" class="lightimage" onclick="javascript:updateLights('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/></a>
+                                            <!--<img id="{name}" class="lightimage" onclick="javascript:updateLights('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/>-->
                                         </div>
                                     </xsl:for-each>
                                 </div>

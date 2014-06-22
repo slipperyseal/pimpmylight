@@ -19,6 +19,7 @@ import net.catchpole.pimpmylight.control.PiRailwaySignalControl;
 import net.catchpole.pimpmylight.control.RailwaySignalControl;
 import net.catchpole.pimpmylight.model.RailwaySignal;
 import net.catchpole.pimpmylight.silicone.action.UpdateAction;
+import net.catchpole.pimpmylight.silicone.artefact.Change;
 import net.catchpole.pimpmylight.silicone.artefact.Status;
 import net.catchpole.pimpmylight.silicone.artefact.Update;
 import net.catchpole.pimpmylight.silicone.artefact.Watch;
@@ -37,19 +38,19 @@ public class PimpMyLightSetup implements SiliconeSetup {
 
     public void setupSilicon(SiliconeConfig siliconeConfig) {
         siliconeConfig.addAction(new UpdateAction(this.fatController));
-        siliconeConfig.registerArtefact(Status.class);
-        siliconeConfig.registerArtefact(Watch.class);
         siliconeConfig.registerArtefact(Update.class);
+        siliconeConfig.registerArtefact(Watch.class);
+        siliconeConfig.registerArtefact(Change.class);
 
         siliconeConfig.setGlobalAction(new Action() {
             public void perform(Object object, Artefacts artefacts) {
                 artefacts.set(new Update());
-                artefacts.set(new Status(fatController));
             }
         });
 
         siliconeConfig.setStatelessAction(new Action() {
             public void perform(Object object, Artefacts artefacts) {
+                artefacts.set(new Status(fatController));
             }
         });
 
@@ -65,6 +66,7 @@ public class PimpMyLightSetup implements SiliconeSetup {
                 asyncGroup.notifyAllListeners(railwaySignal);
             }
         });
+        siliconeConfig.registerGlobalEndpoint(new Change(this.fatController));
         siliconeConfig.registerGlobalEndpoint(new Watch(asyncGroup));
     }
 }

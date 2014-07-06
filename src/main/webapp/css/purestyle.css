@@ -27,8 +27,10 @@ table {
 	border-spacing: 0;
 }
 
-.topspacer {
-    height: 10px;
+.para {
+    display:inline-block;
+    margin-top: 12px;
+    margin-bottom: 20px;
 }
 
 .outer {

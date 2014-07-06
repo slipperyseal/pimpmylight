@@ -22,20 +22,7 @@
                     <p><xsl:value-of select="."/></p>
                 </xsl:for-each>
 
-                <div class="topspacer"/>
                 <h3>Pimp My Light</h3>
-
-                click below to control <a href="http://twitter.com/slipperyseal">Slippery Seal</a>'s Raspberry Pi<br/>
-                powered railway signal in realtime<br/><br/>
-
-                <xsl:for-each select="status">
-                    <xsl:if test=". = '404'">
-                        <div class="container">
-                            <h1>404 Not Found. Awkward.</h1>
-                        </div>
-                    </xsl:if>
-                </xsl:for-each>
-
                 <div class="outer">
                     <div class="outermain">
                         <xsl:for-each select="artefacts">
@@ -51,8 +38,22 @@
                             </xsl:for-each>
                         </xsl:for-each>
                     </div>
-                </div>
 
+                    <div class="para">
+                        I'm a <a href="http://www.raspberrypi.org/">Raspberry Pi</a> controlled railway signal in Melbourne, Australia.
+                        I'm running <a href="https://github.com/slipperyseal/silicone">Silicone</a> on Apache Tomcat and I'm <a href="https://github.com/slipperyseal/pimpmylight">open source</a>.
+                        Pimp my lights and watch others do the same.
+                        I also tweet live updates <a href="https://twitter.com/pimpmylight">@PimpMyLight</a>
+                    </div>
+
+                    <xsl:for-each select="status">
+                        <xsl:if test=". = '404'">
+                            <div class="container">
+                                <h1>404 Not Found. Awkward.</h1>
+                            </div>
+                        </xsl:if>
+                    </xsl:for-each>
+                </div>
             </body>
         </html>
     </xsl:template>

@@ -13,10 +13,10 @@ public class History implements Iterable<Event> {
     }
 
     public void addEvent(Event event) {
-        if (events.size() > maxEvents) {
-            events.remove(0);
-        }
         this.events.add(0, event);
+        if (this.events.size() > maxEvents) {
+            events.remove(this.events.size()-1);
+        }
     }
 
     @Override

@@ -17,10 +17,12 @@ package net.catchpole.pimpmylight;
 import net.catchpole.pimpmylight.control.RailwaySignalControl;
 import net.catchpole.pimpmylight.model.Light;
 import net.catchpole.pimpmylight.model.RailwaySignal;
+import net.catchpole.pimpmylight.twitter.TweetingRailwayControl;
 
 public class FatController {
     private RailwaySignalControl actualRailwaySignalControl;
     private RailwaySignalControl observerRailwaySignalControl;
+    private RailwaySignalControl tweetingRailwayControl = new TweetingRailwayControl();
     private RailwaySignal railwaySignal = blankLight();
     private boolean sleep = false;
 
@@ -57,6 +59,8 @@ public class FatController {
         if (observerRailwaySignalControl != null) {
             observerRailwaySignalControl.updateRailwaySignal(this.railwaySignal);
         }
+
+        tweetingRailwayControl.updateRailwaySignal(railwaySignal);
     }
 
     public void setActualRailwaySignalControl(RailwaySignalControl actualRailwaySignalControl) {

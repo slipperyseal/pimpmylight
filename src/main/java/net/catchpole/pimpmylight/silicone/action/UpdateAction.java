@@ -15,25 +15,24 @@ package net.catchpole.pimpmylight.silicone.action;
 //   limitations under the License.
 
 import net.catchpole.pimpmylight.FatController;
+import net.catchpole.pimpmylight.lang.PropertiesFile;
 import net.catchpole.pimpmylight.silicone.artefact.Update;
 import net.catchpole.silicone.action.Action;
 import net.catchpole.silicone.action.Artefacts;
 import net.catchpole.silicone.action.annotation.AllowGetRequest;
 
-import java.util.Date;
-
 @AllowGetRequest
 public class UpdateAction implements Action<Update> {
-    private FatController fatController;
-    private String sleepCommand = System.getProperty("pimp.sleep");
-    private String wakeCommand = System.getProperty("pimp.wake");
+    private final FatController fatController;
+    private final PropertiesFile propertiesFile = new PropertiesFile("pimpmylight.properties");
+    private String sleepCommand = propertiesFile.getProperty("pimp.sleep");
+    private String wakeCommand = propertiesFile.getProperty("pimp.wake");
 
     public UpdateAction(FatController fatController) {
         this.fatController = fatController;
     }
 
     public void perform(Update update, Artefacts artefacts) {
-        System.out.println("update " + update.getUpdate() + ' ' + new Date());
         if (update.getUpdate().equals(sleepCommand)) {
             fatController.sleepMode(true);
         } else if (update.getUpdate().equals(wakeCommand)) {

@@ -24,7 +24,7 @@ public class PropertiesFile extends Properties {
 
     public PropertiesFile(String filename) {
         try {
-            InputStream inputStream = this.getClass().getResourceAsStream(filename);
+            InputStream inputStream = this.getClass().getResourceAsStream("/" + filename);
             if (inputStream != null) {
                 super.load(inputStream);
                 available = true;

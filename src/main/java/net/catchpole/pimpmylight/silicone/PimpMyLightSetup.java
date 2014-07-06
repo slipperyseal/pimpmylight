@@ -34,7 +34,11 @@ public class PimpMyLightSetup implements SiliconeSetup {
     private FatController fatController = new FatController();
 
     public PimpMyLightSetup() {
-        fatController.setHardwarelRailwaySignalControl(new PiRailwaySignalControl());
+        try {
+            fatController.setHardwarelRailwaySignalControl(new PiRailwaySignalControl());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 
     public void setupSilicon(SiliconeConfig siliconeConfig) {

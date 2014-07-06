@@ -23,6 +23,7 @@ import net.catchpole.pimpmylight.silicone.artefact.Change;
 import net.catchpole.pimpmylight.silicone.artefact.Status;
 import net.catchpole.pimpmylight.silicone.artefact.Update;
 import net.catchpole.pimpmylight.silicone.artefact.Watch;
+import net.catchpole.pimpmylight.twitter.TweetingRailwayControl;
 import net.catchpole.silicone.SiliconeConfig;
 import net.catchpole.silicone.SiliconeSetup;
 import net.catchpole.silicone.action.Action;
@@ -33,7 +34,7 @@ public class PimpMyLightSetup implements SiliconeSetup {
     private FatController fatController = new FatController();
 
     public PimpMyLightSetup() {
-        fatController.setActualRailwaySignalControl(new PiRailwaySignalControl());
+        fatController.setHardwarelRailwaySignalControl(new PiRailwaySignalControl());
     }
 
     public void setupSilicon(SiliconeConfig siliconeConfig) {
@@ -60,12 +61,14 @@ public class PimpMyLightSetup implements SiliconeSetup {
         });
 
         final AsyncGroup<RailwaySignal> asyncGroup = new AsyncGroup<RailwaySignal>();
-        this.fatController.setObserverRailwaySignalControl(new RailwaySignalControl() {
+        this.fatController.addObserverRailwaySignalControl(new RailwaySignalControl() {
             @Override
             public void updateRailwaySignal(RailwaySignal railwaySignal) {
                 asyncGroup.notifyAllListeners(railwaySignal);
             }
         });
+        this.fatController.addObserverRailwaySignalControl(new TweetingRailwayControl());
+
         siliconeConfig.registerGlobalEndpoint(new Change(this.fatController));
         siliconeConfig.registerGlobalEndpoint(new Watch(asyncGroup));
     }

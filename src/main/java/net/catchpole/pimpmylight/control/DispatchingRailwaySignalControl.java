@@ -16,23 +16,18 @@ package net.catchpole.pimpmylight.control;
 
 import net.catchpole.pimpmylight.model.RailwaySignal;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DispatchingRailwaySignalControl<K> implements RailwaySignalControl {
-    private Map<K,RailwaySignalControl> railwaySignalControls = new HashMap<K, RailwaySignalControl>();
+public class DispatchingRailwaySignalControl implements RailwaySignalControl {
+    private List<RailwaySignalControl> railwaySignalControls = new ArrayList<RailwaySignalControl>();
 
-    public void add(K key, RailwaySignalControl railwaySignalControl) {
-        this.railwaySignalControls.put(key, railwaySignalControl);
+    public void add(RailwaySignalControl railwaySignalControl) {
+        this.railwaySignalControls.add(railwaySignalControl);
     }
 
-    public void remove(K key) {
-        this.railwaySignalControls.remove(key);
-    }
-
-    @Override
     public void updateRailwaySignal(RailwaySignal railwaySignal) {
-        for (RailwaySignalControl railwaySignalControl : this.railwaySignalControls.values()) {
+        for (RailwaySignalControl railwaySignalControl : this.railwaySignalControls) {
             railwaySignalControl.updateRailwaySignal(railwaySignal);
         }
     }

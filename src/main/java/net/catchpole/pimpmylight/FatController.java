@@ -14,61 +14,59 @@ package net.catchpole.pimpmylight;
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+import net.catchpole.pimpmylight.control.DispatchingRailwaySignalControl;
 import net.catchpole.pimpmylight.control.RailwaySignalControl;
 import net.catchpole.pimpmylight.model.Light;
 import net.catchpole.pimpmylight.model.RailwaySignal;
-import net.catchpole.pimpmylight.twitter.TweetingRailwayControl;
 
 public class FatController {
-    private RailwaySignalControl actualRailwaySignalControl;
-    private RailwaySignalControl observerRailwaySignalControl;
-    private RailwaySignalControl tweetingRailwayControl = new TweetingRailwayControl();
-    private RailwaySignal railwaySignal = blankLight();
+    private RailwaySignalControl hardwarelRailwaySignalControl;
+    private DispatchingRailwaySignalControl dispatchingRailwaySignalControl = new DispatchingRailwaySignalControl();
+    private RailwaySignal currentRailwaySignal = blankLight();
     private boolean sleep = false;
 
     public FatController() {
     }
 
     public RailwaySignal getStatus() {
-        return railwaySignal;
+        return currentRailwaySignal;
     }
 
     public synchronized void sleepMode(boolean sleep) {
         this.sleep = sleep;
-        if (sleep && this.actualRailwaySignalControl != null) {
-            this.actualRailwaySignalControl.updateRailwaySignal(blankLight());
+        if (this.hardwarelRailwaySignalControl != null) {
+            if (sleep) {
+                this.hardwarelRailwaySignalControl.updateRailwaySignal(blankLight());
+            } else {
+                this.hardwarelRailwaySignalControl.updateRailwaySignal(currentRailwaySignal);
+            }
         }
     }
 
     public synchronized RailwaySignal change(String name) {
-        for (Light light : railwaySignal) {
+        for (Light light : currentRailwaySignal) {
             if (light.getName().equals(name)) {
-                this.railwaySignal = new RailwaySignal(this.railwaySignal, new Light(name, !light.isIlluminated()));
+                this.currentRailwaySignal = new RailwaySignal(this.currentRailwaySignal, new Light(name, !light.isIlluminated()));
                 notifyAllListeners();
-                return this.railwaySignal;
+                return this.currentRailwaySignal;
             }
         }
-        return this.railwaySignal;
+        return this.currentRailwaySignal;
     }
 
     private void notifyAllListeners() {
-        if (!sleep && this.actualRailwaySignalControl != null) {
-            actualRailwaySignalControl.updateRailwaySignal(this.railwaySignal);
+        if (!sleep && this.hardwarelRailwaySignalControl != null) {
+            hardwarelRailwaySignalControl.updateRailwaySignal(this.currentRailwaySignal);
         }
-
-        if (observerRailwaySignalControl != null) {
-            observerRailwaySignalControl.updateRailwaySignal(this.railwaySignal);
-        }
-
-        tweetingRailwayControl.updateRailwaySignal(railwaySignal);
+        dispatchingRailwaySignalControl.updateRailwaySignal(this.currentRailwaySignal);
     }
 
-    public void setActualRailwaySignalControl(RailwaySignalControl actualRailwaySignalControl) {
-        this.actualRailwaySignalControl = actualRailwaySignalControl;
+    public void setHardwarelRailwaySignalControl(RailwaySignalControl hardwarelRailwaySignalControl) {
+        this.hardwarelRailwaySignalControl = hardwarelRailwaySignalControl;
     }
 
-    public void setObserverRailwaySignalControl(RailwaySignalControl actualRailwaySignalControl) {
-        this.observerRailwaySignalControl = actualRailwaySignalControl;
+    public void addObserverRailwaySignalControl(RailwaySignalControl observerRailwaySignalControl) {
+        this.dispatchingRailwaySignalControl.add(observerRailwaySignalControl);
     }
 
     private RailwaySignal blankLight() {

@@ -48,6 +48,7 @@ public class EventMessage {
         long dif = last.getDate().getTime() - secondLast.getDate().getTime();
         if (dif > longTime) {
             StringBuilder sb = new StringBuilder();
+
             sb.append(random(exclaim) + ". I have been idle for " + (dif/1000/60) +
                     " minutes but now someone has set me to");
             for (Light light : last.getRailwaySignal()) {

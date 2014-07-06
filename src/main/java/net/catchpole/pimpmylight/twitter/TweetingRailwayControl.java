@@ -1,13 +1,5 @@
 package net.catchpole.pimpmylight.twitter;
 
-import net.catchpole.pimpmylight.control.RailwaySignalControl;
-import net.catchpole.pimpmylight.model.Event;
-import net.catchpole.pimpmylight.model.History;
-import net.catchpole.pimpmylight.model.RailwaySignal;
-import net.catchpole.silicone.lang.Throw;
-
-import java.util.Date;
-
 //   Copyright 2014 catchpole.net
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +14,17 @@ import java.util.Date;
 //   See the License for the specific language governing permissions and
 //   limitations under the License.
 
+import net.catchpole.pimpmylight.control.RailwaySignalControl;
+import net.catchpole.pimpmylight.model.Event;
+import net.catchpole.pimpmylight.model.History;
+import net.catchpole.pimpmylight.model.RailwaySignal;
+import net.catchpole.silicone.lang.Throw;
+
+import java.util.Date;
+
 public class TweetingRailwayControl implements RailwaySignalControl {
     private History history = new History(1000);
-    private EventMessage eventMessage = new EventMessage(1000*60*30);
+    private EventMessage eventMessage = new EventMessage(1000*60*15);
     private TwitterClient twitterClient;
     private int total;
 

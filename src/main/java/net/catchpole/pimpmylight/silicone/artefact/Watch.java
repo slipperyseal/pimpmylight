@@ -16,6 +16,7 @@ package net.catchpole.pimpmylight.silicone.artefact;
 
 import net.catchpole.pimpmylight.model.RailwaySignal;
 import net.catchpole.silicone.action.Endpoint;
+import net.catchpole.silicone.action.RequestDetails;
 import net.catchpole.silicone.async.AsyncGroup;
 
 public class Watch implements Endpoint<Object,RailwaySignal> {
@@ -26,7 +27,8 @@ public class Watch implements Endpoint<Object,RailwaySignal> {
     }
 
     @Override
-    public RailwaySignal handle(Object railwaySignal) {
+    public RailwaySignal handle(Object railwaySignal, RequestDetails requestDetails) {
+        System.out.println(requestDetails.getOrigin());
         return asyncGroup.blockForUpdate();
     }
 }

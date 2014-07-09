@@ -30,8 +30,8 @@
                                 <div class="lightwrapper">
                                     <xsl:for-each select="Light">
                                         <div class="lightimage">
-                                            <a href="?update={name}"><img id="{name}" class="lightimage" onclick="javascript:updateLights('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/></a>
-                                            <!--<img id="{name}" class="lightimage" onclick="javascript:updateLights('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/>-->
+                                            <!--<a href="?update={name}"><img id="{name}" class="lightimage" onclick="javascript:updateLights('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/></a>-->
+                                            <img id="{name}" class="lightimage" onclick="javascript:changeLight('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/>
                                         </div>
                                     </xsl:for-each>
                                 </div>

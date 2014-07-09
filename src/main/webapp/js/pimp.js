@@ -22,9 +22,9 @@ function pollForLights() {
     });
 }
 
-function updateLights(color) {
+function changeLight(color) {
     $.ajax({
-        url: "service/json/update",
+        url: "service/json/change",
         method: "POST",
         data: '{ "name": "' + color + '"}',
         dataType: "text",

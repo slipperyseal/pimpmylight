@@ -14,7 +14,7 @@
                 <link href="{pathOffset}favicon.ico" rel="icon"/>
             </head>
             <body>
-                <script src="https://code.jquery.com/jquery.js"/>
+                <script src="{pathOffset}js/jquery-1.8.0.min.js"/>
                 <script src="{pathOffset}js/bootstrap.min.js"/>
                 <script src="{pathOffset}js/pimp.js"/>
 
@@ -30,7 +30,7 @@
                                 <div class="lightwrapper">
                                     <xsl:for-each select="Light">
                                         <div class="lightimage">
-                                            <!--<a href="?update={name}"><img id="{name}" class="lightimage" onclick="javascript:updateLights('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/></a>-->
+                                            <!--<a href="?update={name}"><img id="{name}" class="lightimage" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/></a>-->
                                             <img id="{name}" class="lightimage" onclick="javascript:changeLight('{name}')" src="{pathOffset}images/{name}-{illuminated}.jpg" border="0"/>
                                         </div>
                                     </xsl:for-each>

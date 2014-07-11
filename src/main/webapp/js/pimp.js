@@ -8,24 +8,10 @@ function updateImages(lights) {
     }
 }
 
-function pollForLights() {
-    $.ajax({
-        url: "service/json/watch",
-        dataType: "text",
-        success: function(data) {
-            updateImages( $.parseJSON(data) );
-            pollForLights();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            pollForLights();
-        }
-    });
-}
-
 function changeLight(color) {
     $.ajax({
         url: "service/json/change",
-        method: "POST",
+        type: "POST",
         data: '{ "name": "' + color + '"}',
         dataType: "text",
         success: function(data) {
@@ -36,6 +22,20 @@ function changeLight(color) {
     });
 }
 
+function watchLights() {
+    $.ajax({
+        url: "service/json/watch",
+        dataType: "text",
+        success: function(data) {
+            updateImages( $.parseJSON(data) );
+            watchLights();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            watchLights();
+        }
+    });
+}
+
 $(document).ready(function() {
-    pollForLights();
+    watchLights();
 })

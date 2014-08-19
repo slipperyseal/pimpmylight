@@ -23,7 +23,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class EventMessage {
-    private String[] exclaim = { "ZOMG", "Zang", "Cool", "Here I go", "Ladies and gentlemen" };
+    private String[] exclaim = { "ZOMG!", "Zang.", "Cool.", "Here I go.", "Ladies and gentlemen,", "WOOPWOOPWOOP!", ":D", ":O", "Who was that?" };
+    private String[] nowIm = { "Now I'm", "My lights are now", "I'm all", "Behold mah", "Check it out."};
     private Random random = new Random();
     private long longTime;
 
@@ -49,15 +50,19 @@ public class EventMessage {
         if (dif > longTime) {
             StringBuilder sb = new StringBuilder();
 
-            sb.append(random(exclaim) + ". I have been idle for " + (dif/1000/60) +
-                    " minutes but now someone has set me to");
+            sb.append(random(exclaim));
+            sb.append(" I have been idle for ");
+            sb.append(dif/1000/60);
+            sb.append(" minutes but now someone has changed my ");
+            sb.append(getChangedLight(last.getRailwaySignal(), secondLast.getRailwaySignal()).getName());
+            sb.append(" signal. ");
+            sb.append(random(nowIm));
             for (Light light : last.getRailwaySignal()) {
                 sb.append(' ');
                 sb.append(light.getName());
-                sb.append(' ');
+                sb.append(':');
                 sb.append(light.isIlluminated() ? "on" : "off");
             }
-            sb.append(".");
             return sb.toString();
         }
         return null;

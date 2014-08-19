@@ -47,6 +47,5 @@ public class EventMessageTest {
 
         TestCase.assertNotNull(eventMessage.generateMessage(history));
         System.out.println(eventMessage.generateMessage(history));
-
     }
 }

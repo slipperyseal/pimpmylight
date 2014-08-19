@@ -1,4 +1,6 @@
 
+var currentState;
+
 function updateImages(lights) {
     if (lights != null) {
         for (var i = 0; i < lights.length; i++) {
@@ -9,13 +11,19 @@ function updateImages(lights) {
 }
 
 function changeLight(color) {
+    if (currentState != null) {
+        //currentState[color] = !currentState[color];
+        console.log(currentState);
+        updateImages(currentState);
+    }
+
     $.ajax({
         url: "service/json/change",
         type: "POST",
         data: '{ "name": "' + color + '"}',
         dataType: "text",
         success: function(data) {
-            updateImages( $.parseJSON(data) );
+            updateImages( currentState = $.parseJSON(data) );
         },
         error: function (jqXHR, textStatus, errorThrown) {
         }
@@ -27,7 +35,7 @@ function watchLights() {
         url: "service/json/watch",
         dataType: "text",
         success: function(data) {
-            updateImages( $.parseJSON(data) );
+            updateImages( currentState = $.parseJSON(data) );
             watchLights();
         },
         error: function (jqXHR, textStatus, errorThrown) {

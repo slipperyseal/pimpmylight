@@ -18,7 +18,6 @@ import net.catchpole.pimpmylight.FatController;
 import net.catchpole.pimpmylight.model.Light;
 import net.catchpole.pimpmylight.model.RailwaySignal;
 import net.catchpole.silicone.action.Endpoint;
-import net.catchpole.silicone.action.RequestDetails;
 
 public class Change implements Endpoint<Light,RailwaySignal> {
     private FatController fatController;
@@ -28,7 +27,7 @@ public class Change implements Endpoint<Light,RailwaySignal> {
     }
 
     @Override
-    public RailwaySignal handle(Light light, RequestDetails requestDetails) {
+    public RailwaySignal handle(Light light) {
         if (light == null) {
             return null;
         }

@@ -31,6 +31,7 @@ public class TweetingRailwayControl implements RailwaySignalControl {
     public TweetingRailwayControl() {
         try {
             this.twitterClient = new TwitterClient();
+            this.twitterClient.tweet("My Tomcat instance has just restarted. Server time is " + new Date() + ". Hooray!");
         } catch (Exception e) {
             throw Throw.unchecked(e);
         }
@@ -38,9 +39,6 @@ public class TweetingRailwayControl implements RailwaySignalControl {
 
     @Override
     public void updateRailwaySignal(RailwaySignal railwaySignal) {
-        if (total == 0) {
-            twitterClient.tweet("My Tomcat instance has just restarted. Server time is " + new Date() + ". Hooray!");
-        }
         total++;
 
         history.addEvent(new Event(railwaySignal));
